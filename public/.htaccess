@@ -1,0 +1,28 @@
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php73” package as the default “PHP” programming language.
+<IfModule mime_module>
+#  AddHandler application/x-httpd-ea-php73 .php .php7 .phtml
+</IfModule>
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+RewriteRule .* - [env=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+
+RewriteEngine on
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d [OR]
+RewriteCond %{REQUEST_URI} ^/$
+RewriteRule ^(.*)$ /sufirewardsapi/public/index.php [L,QSA]
+
+
+# Don't listing directory
+Options -Indexes
+ErrorDocument 403 http://www.simplysufi.com/
+# Follow symbolic links
+Options +FollowSymLinks
+
+# Default handler
+DirectoryIndex index.php
+
+# php -- END cPanel-generated handler, do not edit
